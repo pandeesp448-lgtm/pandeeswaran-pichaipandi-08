@@ -1,0 +1,204 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { GraduationCap, Target, Award } from 'lucide-react';
+import { fadeInUp, fadeInLeft, fadeInRight, containerVariants } from '../utils/animations';
+
+const Education = () => {
+  const certifications = [
+    "Machine Learning Fundamentals",
+    "Python for Data Science",
+    "Web Development with React",
+  ];
+
+  const timelineItems = [
+    { year: "2023 — 2025 (Feb)", title: "Machinist & Apprentice", subtitle: "LMW Machine Tool Division (Arasur) & LMW Unit 2 (Kaniyur)", desc: "Completed 1-year temporary apprentice, NATS apprentice, and 8 months NAPS apprentice. Worked in automation and CNC (VMC) manufacturing." },
+    { year: "2022", title: "Diploma in Mechanical Engineering", subtitle: "TKS PC, Theni", desc: "Completed mechanical engineering diploma before transitioning to computer science and AI. Score: 85%" },
+    { year: "2020", title: "Higher Secondary (12th)", subtitle: "Z.K.M. Hr. Sec. School, Bodinayakanur", desc: "Score: 49%" },
+    { year: "2018", title: "Secondary School (10th)", subtitle: "Z.K.M. Hr. Sec. School, Bodinayakanur", desc: "Score: 71%" },
+  ];
+
+  return (
+    <section id="education" className="relative py-32 px-6 bg-background overflow-hidden">
+      <div className="absolute inset-0 grid-pattern opacity-30" />
+      <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-20 text-center"
+        >
+          <p className="text-[10px] text-primary font-mono tracking-[0.3em] uppercase mb-4">// Academic Journey</p>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-textMain tracking-tight">
+            EDU<span className="text-gradient">CATION</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+          {/* ── Education Card with College Image BG ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="relative group overflow-hidden rounded-2xl border border-primary/[0.08] hover:border-primary/[0.2] transition-all duration-500"
+            style={{ minHeight: '480px' }}
+          >
+            {/* College image background */}
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+              style={{ backgroundImage: "url('/college.png')" }}
+            />
+            {/* Dark gradient overlay so text is readable */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-background/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-transparent" />
+
+            {/* Top gradient bar */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary to-accent opacity-60 group-hover:opacity-100 transition-opacity" />
+
+            {/* Content */}
+            <div className="relative z-10 p-10 flex flex-col h-full">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2 h-2 rounded-full bg-accent pulse-glow" />
+                <span className="text-[10px] font-mono text-accent tracking-[0.3em] uppercase">Currently Enrolled</span>
+              </div>
+
+              <p className="text-primary font-mono text-sm tracking-[0.2em] mb-4">2025 — 2028</p>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-textMain mb-4 tracking-wide leading-tight">
+                B.Tech Artificial Intelligence<br />
+                <span className="text-gradient">& Data Science</span>
+              </h3>
+
+              <p className="text-textMuted font-light mb-8 leading-relaxed">
+                Nadar Saraswati College of Engineering and Technology, Theni
+              </p>
+
+              <div className="flex items-center gap-4 mb-8">
+                <div className="px-5 py-2.5 border border-primary/[0.15] rounded-xl bg-background/60 backdrop-blur-sm">
+                  <span className="text-textMain font-mono tracking-[0.15em] text-sm font-bold">CGPA: 8.2</span>
+                </div>
+                <div className="px-5 py-2.5 border border-primary/[0.15] rounded-xl bg-background/60 backdrop-blur-sm">
+                  <span className="text-textMuted font-mono tracking-[0.15em] text-sm">3rd Year</span>
+                </div>
+              </div>
+
+              <div className="mt-auto pt-6 border-t border-primary/[0.08]">
+                <p className="text-[10px] font-mono text-textDim tracking-[0.2em] uppercase mb-3">Key Coursework</p>
+                <div className="flex flex-wrap gap-2">
+                  {['Data Structures', 'Neural Networks', 'Deep Learning', 'Computer Vision', 'NLP', 'Statistics'].map((course, idx) => (
+                    <span key={idx} className="text-[9px] font-mono text-textDim tracking-[0.1em] px-3 py-1.5 rounded-md bg-background/60 backdrop-blur-sm border border-primary/[0.08] uppercase">
+                      {course}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative watermark icon */}
+            <div className="absolute top-8 right-8 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity">
+              <GraduationCap className="w-40 h-40 text-primary" />
+            </div>
+          </motion.div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Career Goal */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="group relative bg-surface border border-primary/[0.06] rounded-2xl overflow-hidden hover:border-primary/[0.15] transition-all duration-500"
+            >
+              <div className="h-[2px] w-full bg-gradient-to-r from-secondary to-primary opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="p-10 relative">
+                <div className="absolute top-8 right-8 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
+                  <Target className="w-32 h-32 text-secondary" />
+                </div>
+                <div className="relative z-10">
+                  <p className="text-[10px] font-mono text-secondary tracking-[0.3em] uppercase mb-4">Career Objective</p>
+                  <p className="text-xl md:text-2xl text-textMuted font-light leading-relaxed">
+                    To become a leading <strong className="text-textMain font-bold">AI Engineer</strong> and build intelligent systems that solve real-world problems using <span className="text-gradient font-semibold">Artificial Intelligence</span> and Machine Learning.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Certifications */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="group relative bg-surface border border-primary/[0.06] rounded-2xl overflow-hidden hover:border-primary/[0.15] transition-all duration-500"
+            >
+              <div className="h-[2px] w-full bg-gradient-to-r from-accent to-secondary opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="p-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <Award className="w-5 h-5 text-accent" />
+                  </div>
+                  <p className="text-[10px] font-mono text-accent tracking-[0.2em] uppercase">Continuous Learning</p>
+                </div>
+                <div className="space-y-3">
+                  {certifications.map((cert, idx) => (
+                    <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-primary/[0.02] border border-primary/[0.04] hover:border-primary/[0.1] transition-colors">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent/60 shrink-0" />
+                      <span className="text-sm text-textMuted font-light">{cert}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Timeline Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-20"
+        >
+          <div className="flex items-center gap-4 mb-10">
+            <h3 className="text-2xl md:text-3xl font-bold text-textMain tracking-wide">Previous Education & <span className="text-gradient">Experience</span></h3>
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-primary/20 to-transparent" />
+          </div>
+
+          <div className="space-y-8 border-l-2 border-primary/20 pl-8 ml-4 md:ml-6 relative">
+            {timelineItems.map((item, idx) => (
+              <motion.div 
+                key={idx} 
+                className="relative"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                {/* Timeline Dot */}
+                <span className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-surface border-2 border-primary flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                </span>
+                
+                <div className="p-6 bg-surface border border-primary/[0.06] rounded-2xl hover:border-primary/[0.2] hover:bg-surfaceHover transition-all duration-300">
+                  <p className="text-primary font-mono text-xs tracking-[0.15em] mb-2">{item.year}</p>
+                  <h4 className="text-xl font-bold text-textMain">{item.title}</h4>
+                  <p className="text-sm text-textMuted mt-1 font-medium">{item.subtitle}</p>
+                  {item.desc && <p className="text-sm text-textDim mt-4 leading-relaxed">{item.desc}</p>}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+export default Education;
