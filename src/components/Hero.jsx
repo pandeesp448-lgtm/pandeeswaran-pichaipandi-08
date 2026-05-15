@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Download } from 'lucide-react';
 import { fadeInDown, fadeInUp, scaleIn, floatAnimation } from '../utils/animations';
+import CnnVisual from './CnnVisual';
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('');
@@ -56,40 +57,23 @@ const Hero = () => {
       
       <div className="absolute inset-0 animated-grid opacity-30" />
       <div className="absolute inset-0 bg-gradient-mesh" />
+      
+      <div className="absolute inset-0 z-0 opacity-40 md:opacity-100">
+        <CnnVisual />
+      </div>
 
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute rounded-full bg-primary/20"
-          style={{ width: p.size, height: p.size, left: `${p.x}%`, top: `${p.y}%` }}
-          animate={{ y: [0, -30, 0], opacity: [0, 0.5, 0] }}
-          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'linear' }}
-        />
-      ))}
-
-      {/* Profile image with left-right float + parallax */}
+      {/* Profile image with subtle parallax only */}
       <motion.div 
         className="absolute inset-0 z-0"
-        style={{ y: mousePos.y * 0.3 }}
+        style={{ y: mousePos.y * 0.2 }}
       >
-        {/* Left-right floating animation on the image */}
         <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
           className="absolute inset-0"
-          animate={{ x: [0, 28, 0, -28, 0] }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
         >
-          <motion.div
-            initial={{ scale: 1.2, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 2, ease: 'easeOut' }}
-            className="absolute inset-0"
-          >
-            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/profile.png')" }} />
-          </motion.div>
+          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/profile.png')" }} />
         </motion.div>
 
         {/* Overlays */}
@@ -123,22 +107,23 @@ const Hero = () => {
 
           {/* Name */}
           <motion.h1 
-            className="text-6xl md:text-8xl lg:text-[10rem] font-black text-textMain tracking-[0.05em] leading-[0.9] select-none"
+            className="text-6xl md:text-8xl lg:text-[9rem] font-black text-textMain tracking-[0.05em] leading-[0.9] select-none"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <span className="block">PANDEES</span>
-            <span className="block text-gradient glow-text">WARAN P</span>
+            <span className="block uppercase">PANDEESWARAN</span>
+            <span className="block text-gradient glow-text uppercase">PICHAIPANDI</span>
           </motion.h1>
 
-          {/* Typing Role */}
-          <motion.div className="mt-8 md:mt-10 flex items-center gap-4 md:gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-            <div className="h-[1px] w-10 md:w-20 bg-gradient-to-r from-primary/50 to-transparent" />
-            <div className="text-base md:text-xl font-mono text-textMuted tracking-wider">
-              <span className="text-primary">&gt;</span>{' '}
-              <span className="text-textMain">{displayText}</span>
-              <span className="typing-cursor text-primary ml-0.5">|</span>
+          <motion.div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
+            <div className="flex items-center gap-4 md:gap-6">
+              <div className="h-[1px] w-10 md:w-20 bg-gradient-to-r from-primary/50 to-transparent" />
+              <div className="text-base md:text-xl font-mono text-textMuted tracking-wider">
+                <span className="text-primary">&gt;</span>{' '}
+                <span className="text-textMain">{displayText}</span>
+                <span className="typing-cursor text-primary ml-0.5">|</span>
+              </div>
             </div>
           </motion.div>
         </motion.div>

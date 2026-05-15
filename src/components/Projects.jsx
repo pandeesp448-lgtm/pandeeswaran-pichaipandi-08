@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { GitBranch, ExternalLink, ArrowUpRight, Brain, Code, Cpu, Globe, BarChart3, Sparkles } from 'lucide-react';
 import { fadeInLeft, fadeInRight, hoverLift, inViewPropsScale } from '../utils/animations';
+import NeuralNetworkBg from './NeuralNetworkBg';
 
 const categories = ['All', 'AI / ML', 'Full Stack', 'Web Dev', 'Data Science', 'Creative'];
 
@@ -75,217 +76,66 @@ const projects = [
 const ProjectCard = ({ project, idx }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-  const fromLeft = idx % 2 === 0;
   const meta = categoryMeta[project.category] || categoryMeta['All'];
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: fromLeft ? -80 : 80, y: 30 }}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ type: 'spring', stiffness: 160, damping: 22, delay: (idx % 3) * 0.1 }}
-      whileHover={{ y: -8, boxShadow: `0 40px 80px rgba(210, 180, 140, 0.15)` }}
-      className="group relative rounded-3xl overflow-hidden border border-white/5 bg-surface/60 backdrop-blur-sm hover:border-white/15 transition-all duration-500 cursor-pointer"
+      initial={{ opacity: 0, y: 10 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: idx * 0.05 }}
+      className="group relative rounded-3xl overflow-hidden border border-white/5 bg-surface/60 backdrop-blur-sm hover:border-white/15 transition-all duration-300 cursor-pointer"
     >
-      {/* Animated border glow */}
-      <motion.div
-        className="absolute inset-0 rounded-3xl pointer-events-none"
-        style={{ 
-          border: `2px solid transparent`,
-          backgroundClip: 'padding-box',
-          background: `linear-gradient(135deg, ${meta.hex}40, ${meta.hex}10, transparent) border-box`
-        }}
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-      />
-
-      {/* Top colour bar */}
-      <motion.div
-        className="absolute top-0 inset-x-0 h-[2px] opacity-60 transition-opacity duration-500"
-        style={{ background: `linear-gradient(90deg, ${meta.hex}, transparent)` }}
-        initial={{ scaleX: 0 }}
-        whileHover={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      />
-
-      {/* Hover glow layer */}
-      <motion.div
-        className="absolute inset-0 opacity-0 pointer-events-none"
-        style={{ background: `radial-gradient(circle at top left, ${meta.hex}, transparent 60%)` }}
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 0.08 }}
-        transition={{ duration: 0.5 }}
-      />
-
-      <div className="flex flex-col md:flex-row min-h-[220px]">
-
-        {/* ── Image / visual panel ── */}
-        <div className="relative w-full md:w-72 h-52 md:h-auto shrink-0 overflow-hidden">
-          <motion.img
+      <div className="flex flex-col md:flex-row min-h-[200px]">
+        {/* Image panel */}
+        <div className="relative w-full md:w-64 h-48 md:h-auto shrink-0 overflow-hidden">
+          <img
             src={project.image}
             alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ scale: 1 }}
-            whileHover={{ scale: 1.15, rotate: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          {/* Gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/30 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/60 hidden md:block" />
-
-          {/* Shimmer effect on hover */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-            initial={{ x: '-100%' }}
-            whileHover={{ x: '100%' }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
-          />
-
-          {/* Number watermark - animated */}
-          <motion.span 
-            className="absolute top-4 left-5 text-[72px] font-black text-white/[0.05] leading-none select-none transition-colors duration-500"
-            initial={{ opacity: 0.05 }}
-            whileHover={{ opacity: 0.15, scale: 1.1 }}
-            transition={{ duration: 0.4 }}
-          >
-            0{idx + 1}
-          </motion.span>
-
-          {/* Category badge - enhanced */}
-          <motion.div
-            className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] font-mono tracking-[0.15em] uppercase"
-            style={{ borderColor: `${meta.hex}40`, backgroundColor: `${meta.hex}18`, color: meta.hex }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3 + idx * 0.06 }}
-            whileHover={{ scale: 1.08, y: -2 }}
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            >
-              <meta.icon className="w-3 h-3" />
-            </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+          <div className="absolute bottom-3 left-3 flex items-center gap-2 px-2 py-1 rounded-full border backdrop-blur-md text-[9px] font-mono tracking-wider uppercase"
+               style={{ borderColor: `${meta.hex}40`, backgroundColor: `${meta.hex}18`, color: meta.hex }}>
+            <meta.icon className="w-3 h-3" />
             {project.category}
-          </motion.div>
+          </div>
         </div>
 
-        {/* ── Content ── */}
-        <div className="flex-1 p-7 md:p-10 flex flex-col justify-between">
+        {/* Content */}
+        <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
           <div>
-            {/* Title */}
-            <div className="flex items-start gap-3 mb-3">
-              <motion.span 
-                className="text-xs font-mono font-bold tracking-[0.1em] uppercase px-3 py-1.5 rounded-full border"
-                style={{ color: meta.hex, borderColor: `${meta.hex}40`, backgroundColor: `${meta.hex}10` }}
-                initial={{ opacity: 0, y: -10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2 }}
-              >
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded border" 
+                    style={{ color: meta.hex, borderColor: `${meta.hex}40` }}>
                 {project.emoji}
-              </motion.span>
-              <motion.h3 
-                className="text-xl md:text-2xl font-black text-white tracking-tight leading-snug"
-                initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.15 }}
-                whileHover={{ color: meta.hex }}
-              >
+              </span>
+              <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-primary transition-colors">
                 {project.title}
-              </motion.h3>
+              </h3>
             </div>
-
-            {/* Description - reveal animation */}
-            <motion.p 
-              className="text-textMuted text-sm leading-relaxed mb-6 max-w-lg"
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
-            >
+            <p className="text-textMuted text-xs leading-relaxed mb-4 line-clamp-2">
               {project.description}
-            </motion.p>
-
-            {/* Tech chips - staggered entrance with bounce */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            </p>
+            <div className="flex flex-wrap gap-1.5 mb-6">
               {project.tech.map((tech, tIdx) => (
-                <motion.span
-                  key={tIdx}
-                  initial={{ opacity: 0, scale: 0.5, y: 10 }}
-                  animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-                  transition={{ delay: 0.25 + tIdx * 0.08, type: 'spring', stiffness: 200, damping: 15 }}
-                  whileHover={{ 
-                    scale: 1.12, 
-                    y: -3,
-                    backgroundColor: `${meta.hex}25`,
-                    boxShadow: `0 8px 16px ${meta.hex}20`
-                  }}
-                  className="text-[10px] font-mono font-bold tracking-[0.15em] px-3 py-1.5 rounded-full uppercase transition-all duration-300 cursor-pointer"
-                  style={{
-                    color: meta.hex,
-                    borderColor: `${meta.hex}30`,
-                    backgroundColor: `${meta.hex}12`,
-                    border: `1px solid ${meta.hex}30`,
-                  }}
-                >
+                <span key={tIdx} className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-white/10 bg-white/5 text-textDim">
                   {tech}
-                </motion.span>
+                </span>
               ))}
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-5">
-            <motion.a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-              initial={{ opacity: 0, x: -10 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              whileHover={{ x: 6 }}
-              whileTap={{ scale: 0.95 }}
-              className="group/link flex items-center gap-2 text-xs font-mono text-textDim hover:text-white transition-colors duration-300"
-            >
-              <GitBranch className="w-4 h-4" />
-              <span className="tracking-[0.12em] uppercase">Source Code</span>
-              <motion.div
-                initial={{ opacity: 0, y: 2 }}
-                whileHover={{ opacity: 1, y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ArrowUpRight className="w-3 h-3" />
-              </motion.div>
-            </motion.a>
-
-            <motion.div 
-              className="w-px h-3 bg-white/10"
-              initial={{ scaleY: 0 }}
-              animate={inView ? { scaleY: 1 } : {}}
-              transition={{ delay: 0.6 }}
-            />
-
-            <motion.a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-              initial={{ opacity: 0, x: 10 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.45 }}
-              whileHover={{ scale: 1.08, y: -2 }}
-              whileTap={{ scale: 0.92 }}
-              className="flex items-center gap-2 text-xs font-mono font-bold tracking-[0.12em] uppercase px-5 py-2.5 rounded-full border transition-all duration-300 relative overflow-hidden group/btn"
-              style={{ color: meta.hex, borderColor: `${meta.hex}40`, backgroundColor: `${meta.hex}10` }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: '100%' }}
-                transition={{ duration: 0.6 }}
-              />
-              <ExternalLink className="w-3.5 h-3.5 relative z-10" />
-              <span className="relative z-10">View Project</span>
-            </motion.a>
+          <div className="flex items-center gap-4">
+            <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[10px] font-mono text-textDim hover:text-white transition-colors">
+              <GitBranch className="w-3.5 h-3.5" />
+              <span>SOURCE</span>
+            </a>
+            <div className="w-px h-2 bg-white/10" />
+            <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-primary hover:text-accent transition-colors">
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>LIVE DEMO</span>
+            </a>
           </div>
         </div>
       </div>
@@ -306,6 +156,9 @@ const Projects = () => {
       {/* Backgrounds */}
       <div className="absolute inset-0 dot-pattern opacity-15" />
       <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+      <div className="opacity-10 scale-150 rotate-12">
+        <NeuralNetworkBg />
+      </div>
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
 

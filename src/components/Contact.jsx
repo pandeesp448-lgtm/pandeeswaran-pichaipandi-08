@@ -49,7 +49,7 @@ const Contact = () => {
     { name: 'Main Email', value: 'pandeesp448@gmail.com', href: 'mailto:pandeesp448@gmail.com', icon: Mail },
     { name: 'Domain Email', value: 'pandeeswaranp_ai@nscet.org', href: 'mailto:pandeeswaranp_ai@nscet.org', icon: Mail },
     { name: 'Phone / WhatsApp', value: '9047323345', href: 'tel:+919047323345', icon: Phone },
-    { name: 'LinkedIn', value: 'pandeeswaranp08', href: 'https://www.linkedin.com/in/pandeeswaranp08', icon: Briefcase },
+    { name: 'LinkedIn', value: 'pandeeswaranp0', href: 'https://www.linkedin.com/in/pandeeswaranp0', icon: Briefcase },
     { name: 'Address', value: 'Bodinayakanur, Theni, 625513', href: '#', icon: MapPin },
     { name: 'GitHub', value: 'pandeesp448-lgtm', href: 'https://github.com/pandeesp448-lgtm', icon: GitBranch },
   ];

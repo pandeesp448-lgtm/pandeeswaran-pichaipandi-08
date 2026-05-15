@@ -27,7 +27,7 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             {[
               { href: "https://github.com/pandeesp448-lgtm", icon: GitBranch, label: "GitHub" },
-              { href: "https://www.linkedin.com/in/pandeeswaranp08", icon: Briefcase, label: "LinkedIn" },
+              { href: "https://www.linkedin.com/in/pandeeswaranp0", icon: Briefcase, label: "LinkedIn" },
               { href: "mailto:pandeesp448@gmail.com", icon: Mail, label: "Email" },
             ].map((social, idx) => (
               <a key={idx} href={social.href} target={social.label !== 'Email' ? '_blank' : undefined} rel="noreferrer"

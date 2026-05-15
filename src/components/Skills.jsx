@@ -5,85 +5,43 @@ import {
   Eye, Globe, Terminal, Zap,
   Database, Cpu, Layers, Monitor,
   Server, BookOpen, Flame, BarChart3,
-  Network, Box, FileCode, PenTool
+  Network, Box, FileCode, PenTool, Settings
 } from 'lucide-react';
 import { containerVariants, fadeInUp, inViewPropsScale } from '../utils/animations';
+import NeuralNetworkBg from './NeuralNetworkBg';
 
 /* ── Skill categories data ── */
 const skillCategories = [
   {
-    title: "AI / ML Frameworks", subtitle: "Intelligence Layer", icon: Brain,
+    title: "Programming & AI", subtitle: "Core Logic", icon: Brain,
     hex: '#D2B48C',
     skills: [
-      { name: "TensorFlow", icon: Brain, level: 85 },
-      { name: "PyTorch", icon: Flame, level: 80 },
-      { name: "Scikit-learn", icon: BarChart3, level: 85 },
-      { name: "Keras", icon: Layers, level: 80 },
-      { name: "OpenCV", icon: Eye, level: 82 },
-      { name: "LangChain", icon: Network, level: 78 },
-      { name: "LangGraph", icon: Network, level: 75 },
-      { name: "NumPy", icon: Cpu, level: 88 },
-      { name: "Pandas", icon: Database, level: 85 },
-      { name: "MediaPipe", icon: Eye, level: 75 },
-      { name: "Matplotlib", icon: BarChart3, level: 80 },
+      { name: "Python", icon: Terminal, level: 92 },
+      { name: "AI Basics", icon: Brain, level: 85 },
+      { name: "ML Basics", icon: Cpu, level: 80 },
+      { name: "Data Analysis", icon: BarChart3, level: 78 },
     ]
   },
   {
-    title: "Web Development", subtitle: "Digital Craft", icon: Code,
+    title: "Industrial Skills", subtitle: "Technical Expertise", icon: Settings,
     hex: '#8B6F47',
     skills: [
-      { name: "HTML5", icon: FileCode, level: 92 },
-      { name: "CSS3", icon: Palette, level: 90 },
-      { name: "JavaScript", icon: Code, level: 85 },
-      { name: "React.js", icon: Layers, level: 85 },
-      { name: "Node.js", icon: Server, level: 78 },
-      { name: "FastAPI", icon: Zap, level: 80 },
-      { name: "Three.js", icon: Box, level: 75 },
-      { name: "Tailwind CSS", icon: Palette, level: 85 },
+      { name: "CNC Operation", icon: Cpu, level: 90 },
+      { name: "Automation", icon: Zap, level: 85 },
+      { name: "Manufacturing", icon: Layers, level: 88 },
+      { name: "Machinist Ops", icon: Settings, level: 90 },
+      { name: "Quality Inspect", icon: Eye, level: 85 },
     ]
   },
   {
-    title: "Databases", subtitle: "Data Layer", icon: Database,
-    hex: '#34D399',
-    skills: [
-      { name: "Firebase Firestore", icon: Flame, level: 82 },
-      { name: "Realtime Database", icon: Zap, level: 80 },
-      { name: "MySQL", icon: Database, level: 78 },
-    ]
-  },
-  {
-    title: "Tools & DevOps", subtitle: "Workflow", icon: Terminal,
+    title: "Tools & Software", subtitle: "Workflow", icon: Terminal,
     hex: '#D2B48C',
     skills: [
-      { name: "Git", icon: GitBranch, level: 85 },
-      { name: "GitHub", icon: GitBranch, level: 88 },
+      { name: "MS Office", icon: FileCode, level: 90 },
+      { name: "Git / GitHub", icon: GitBranch, level: 85 },
       { name: "VS Code", icon: Monitor, level: 92 },
-      { name: "Jupyter Notebook", icon: BookOpen, level: 85 },
-      { name: "Google Colab", icon: Globe, level: 88 },
     ]
-  },
-  {
-    title: "UI/UX Design", subtitle: "Creative Suite", icon: PenTool,
-    hex: '#F9A8D4',
-    skills: [
-      { name: "Figma", icon: PenTool, level: 82 },
-      { name: "UI Design", icon: Palette, level: 80 },
-      { name: "Prototyping", icon: Box, level: 78 },
-    ]
-  },
-  {
-    title: "AI / ML Core", subtitle: "Neural Systems", icon: Cpu,
-    hex: '#818CF8',
-    skills: [
-      { name: "Machine Learning", icon: Brain, level: 85 },
-      { name: "Deep Learning", icon: Cpu, level: 80 },
-      { name: "Neural Networks", icon: Network, level: 82 },
-      { name: "LLMs", icon: Brain, level: 82 },
-      { name: "Computer Vision", icon: Eye, level: 80 },
-      { name: "NLP", icon: Terminal, level: 75 },
-      { name: "Python", icon: Terminal, level: 92 },
-    ]
-  },
+  }
 ];
 
 /* ── Circular Progress Ring ── */
@@ -97,24 +55,15 @@ const RingCard = ({ skill, hex, idx, isActive }) => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, scale: 0.7, y: 30 }}
-      animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-      transition={{ type: 'spring', stiffness: 220, damping: 20, delay: idx * 0.06 }}
-      whileHover={{ y: -6, scale: 1.04 }}
-      className="group relative flex flex-col items-center gap-3 p-4 rounded-2xl border border-white/5 bg-surface/50 hover:border-white/15 hover:bg-surface/80 transition-all duration-300 cursor-default"
+      initial={{ opacity: 0, y: 10 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: idx * 0.05 }}
+      className="group relative flex flex-col items-center gap-3 p-4 rounded-2xl border border-white/5 bg-surface/50 transition-all duration-300 cursor-default"
     >
-      {/* Glow on hover */}
-      <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
-        style={{ backgroundColor: hex }}
-      />
-
       {/* SVG Ring */}
       <div className="relative w-16 h-16">
         <svg width="64" height="64" className="-rotate-90">
-          {/* Track */}
           <circle cx="32" cy="32" r={RADIUS} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
-          {/* Progress */}
           <motion.circle
             cx="32" cy="32" r={RADIUS}
             fill="none"
@@ -124,63 +73,36 @@ const RingCard = ({ skill, hex, idx, isActive }) => {
             strokeDasharray={CIRC}
             initial={{ strokeDashoffset: CIRC }}
             animate={inView ? { strokeDashoffset: CIRC - (CIRC * skill.level) / 100 } : { strokeDashoffset: CIRC }}
-            transition={{ duration: 1.4, delay: 0.3 + idx * 0.07, ease: [0.16, 1, 0.3, 1] }}
-            style={{ filter: `drop-shadow(0 0 6px ${hex}80)` }}
+            transition={{ duration: 1, delay: 0.2 + idx * 0.05 }}
           />
         </svg>
-        {/* Icon inside ring */}
         <div className="absolute inset-0 flex items-center justify-center">
           <skill.icon className="w-5 h-5" style={{ color: hex }} />
         </div>
       </div>
 
-      {/* Skill Name */}
-      <p className="text-[11px] font-bold text-textMuted group-hover:text-white text-center tracking-wide transition-colors duration-300 uppercase leading-tight">
+      <p className="text-[10px] font-bold text-textMuted group-hover:text-white text-center tracking-wide uppercase leading-tight transition-colors">
         {skill.name}
       </p>
 
-      {/* Percentage badge */}
-      <motion.span
-        className="text-[10px] font-mono px-2 py-0.5 rounded-full border"
+      <span
+        className="text-[9px] font-mono px-2 py-0.5 rounded-full border"
         style={{ color: hex, borderColor: `${hex}40`, backgroundColor: `${hex}10` }}
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.5 + idx * 0.07 }}
       >
         {skill.level}%
-      </motion.span>
+      </span>
     </motion.div>
   );
 };
 
-/* ── Scrolling Marquee Badge ── */
+/* ── Static Badge ── */
 const TechBadge = ({ tech }) => (
-  <motion.div
-    whileHover={{ scale: 1.12, y: -6, rotate: -1 }}
-    whileTap={{ scale: 0.95 }}
-    transition={{ type: 'spring', stiffness: 320, damping: 14 }}
-    className="relative group cursor-pointer mx-4 shrink-0"
-  >
-    <div
-      className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"
-      style={{ backgroundColor: tech.color }}
-    />
-    <motion.div
-      className="absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-30"
-      style={{ backgroundColor: tech.color }}
-      animate={{ scale: [1, 1.15, 1] }}
-      transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
-    />
-    <div className="relative flex items-center gap-4 px-8 py-4 rounded-full border border-white/10 bg-surface/80 backdrop-blur-md group-hover:border-white/25 group-hover:bg-surfaceHover transition-all duration-300 overflow-hidden shadow-xl shadow-black/40">
-      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <span className="text-3xl transition-all duration-300 group-hover:scale-125 group-hover:rotate-12" style={{ color: tech.color }}>
-        {tech.icon}
-      </span>
-      <span className="text-[13px] font-extrabold tracking-[0.18em] text-textMuted group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
-        {tech.name}
-      </span>
-    </div>
-  </motion.div>
+  <div className="mx-4 shrink-0 flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-surface/80 backdrop-blur-md">
+    <span className="text-2xl">{tech.icon}</span>
+    <span className="text-[11px] font-bold tracking-widest text-textMuted uppercase whitespace-nowrap">
+      {tech.name}
+    </span>
+  </div>
 );
 
 const techRow1 = [
@@ -221,6 +143,7 @@ const Skills = () => {
       {/* Backgrounds */}
       <div className="absolute inset-0 grid-pattern opacity-20" />
       <div className="absolute inset-0 bg-gradient-mesh opacity-40" />
+      <NeuralNetworkBg />
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[160px] pointer-events-none" />
 

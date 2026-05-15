@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Target, Award } from 'lucide-react';
 import { fadeInUp, fadeInLeft, fadeInRight, containerVariants } from '../utils/animations';
+import NeuralNetworkBg from './NeuralNetworkBg';
 
 const Education = () => {
   const certifications = [
@@ -11,16 +12,19 @@ const Education = () => {
   ];
 
   const timelineItems = [
-    { year: "2023 — 2025 (Feb)", title: "Machinist & Apprentice", subtitle: "LMW Machine Tool Division (Arasur) & LMW Unit 2 (Kaniyur)", desc: "Completed 1-year temporary apprentice, NATS apprentice, and 8 months NAPS apprentice. Worked in automation and CNC (VMC) manufacturing." },
-    { year: "2022", title: "Diploma in Mechanical Engineering", subtitle: "TKS PC, Theni", desc: "Completed mechanical engineering diploma before transitioning to computer science and AI. Score: 85%" },
-    { year: "2020", title: "Higher Secondary (12th)", subtitle: "Z.K.M. Hr. Sec. School, Bodinayakanur", desc: "Score: 49%" },
-    { year: "2018", title: "Secondary School (10th)", subtitle: "Z.K.M. Hr. Sec. School, Bodinayakanur", desc: "Score: 71%" },
+    { year: "2024 — 2025 (Feb)", title: "NAPS Apprentice", subtitle: "Lakshmi Machine Works Limited (LMW) — Machine Tool Division, Arasur", desc: "Worked in CNC (VMC) machines and automation processes. Supported production team in ensuring quality and efficiency. Discontinued in February 2025 (Relieved)." },
+    { year: "2023 — 2025", title: "NATS Apprentice", subtitle: "Lakshmi Machine Works Limited (LMW) — Machine Tool Division, Arasur", desc: "Trained in CNC (VMC) machining and industrial automation. Operated machines and handled production workflows. Learned machine setup, tool setting and process optimization." },
+    { year: "2022 — 2023", title: "Temporary Apprentice (Diploma)", subtitle: "Lakshmi Machine Works Limited (LMW) — Unit 2, Kaniyur, Coimbatore", desc: "Worked in automation and CNC (VMC) manufacturing environment. Assisted in machine operations, setup and production activities. Gained hands-on experience in machining and quality processes." },
+    { year: "2022", title: "Diploma in Mechanical Engineering", subtitle: "TKS Polytechnic College, Theni", desc: "Completed mechanical engineering diploma before transitioning to AI. Year: 2022 | Status: Completed" },
+    { year: "2020", title: "Higher Secondary Education (12th)", subtitle: "Z.K.M.HR.SCHOOL, Bodinayakanur", desc: "Year: 2020 | Percentage: 49%" },
+    { year: "2018", title: "SSLC (10th)", subtitle: "Z.K.M.HR.SCHOOL, Bodinayakanur", desc: "Year: 2018 | Percentage: 71%" },
   ];
 
   return (
     <section id="education" className="relative py-32 px-6 bg-background overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-30" />
       <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
+      <NeuralNetworkBg />
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
@@ -66,7 +70,7 @@ const Education = () => {
                 <span className="text-[10px] font-mono text-accent tracking-[0.3em] uppercase">Currently Enrolled</span>
               </div>
 
-              <p className="text-primary font-mono text-sm tracking-[0.2em] mb-4">2025 — 2028</p>
+              <p className="text-primary font-mono text-sm tracking-[0.2em] mb-4">2025 — 2026</p>
 
               <h3 className="text-2xl md:text-3xl font-bold text-textMain mb-4 tracking-wide leading-tight">
                 B.Tech Artificial Intelligence<br />
@@ -82,7 +86,7 @@ const Education = () => {
                   <span className="text-textMain font-mono tracking-[0.15em] text-sm font-bold">CGPA: 8.2</span>
                 </div>
                 <div className="px-5 py-2.5 border border-primary/[0.15] rounded-xl bg-background/60 backdrop-blur-sm">
-                  <span className="text-textMuted font-mono tracking-[0.15em] text-sm">3rd Year</span>
+                  <span className="text-textMuted font-mono tracking-[0.15em] text-sm">Completed II Year, Moving to III Year</span>
                 </div>
               </div>
 
@@ -122,13 +126,13 @@ const Education = () => {
                 <div className="relative z-10">
                   <p className="text-[10px] font-mono text-secondary tracking-[0.3em] uppercase mb-4">Career Objective</p>
                   <p className="text-xl md:text-2xl text-textMuted font-light leading-relaxed">
-                    To become a leading <strong className="text-textMain font-bold">AI Engineer</strong> and build intelligent systems that solve real-world problems using <span className="text-gradient font-semibold">Artificial Intelligence</span> and Machine Learning.
+                    Motivated and enthusiastic B.Tech Artificial Intelligence and Data Science student with strong industrial experience in automation and CNC (VMC) manufacturing. Seeking an AI Engineer Intern opportunity to apply my technical knowledge, problem-solving skills and practical experience to develop intelligent and innovative solutions while contributing to organizational growth.
                   </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Certifications */}
+            {/* Certifications / Tools */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -142,13 +146,47 @@ const Education = () => {
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
                     <Award className="w-5 h-5 text-accent" />
                   </div>
-                  <p className="text-[10px] font-mono text-accent tracking-[0.2em] uppercase">Continuous Learning</p>
+                  <p className="text-[10px] font-mono text-accent tracking-[0.2em] uppercase">Tools & Software</p>
                 </div>
                 <div className="space-y-3">
-                  {certifications.map((cert, idx) => (
+                  {["MS Office", "Basic Programming", "Computer Fundamentals"].map((cert, idx) => (
                     <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-primary/[0.02] border border-primary/[0.04] hover:border-primary/[0.1] transition-colors">
                       <span className="w-1.5 h-1.5 rounded-full bg-accent/60 shrink-0" />
                       <span className="text-sm text-textMuted font-light">{cert}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Industrial Exposure */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="group relative bg-surface border border-primary/[0.06] rounded-2xl overflow-hidden hover:border-primary/[0.15] transition-all duration-500"
+            >
+              <div className="h-[2px] w-full bg-gradient-to-r from-primary to-accent opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="p-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Target className="w-5 h-5 text-primary" />
+                  </div>
+                  <p className="text-[10px] font-mono text-primary tracking-[0.2em] uppercase">Industrial / Technical Skills</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    "CNC (VMC) Machine Operation",
+                    "Automation Basics",
+                    "Manufacturing Processes",
+                    "Machinist Operations",
+                    "Machine Setup & Operation",
+                    "Quality Inspection"
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-primary/[0.02] border border-primary/[0.04] hover:border-primary/[0.1] transition-colors">
+                      <span className="w-1 h-1 rounded-full bg-primary/60 shrink-0" />
+                      <span className="text-xs text-textMuted font-mono uppercase tracking-wider">{item}</span>
                     </div>
                   ))}
                 </div>

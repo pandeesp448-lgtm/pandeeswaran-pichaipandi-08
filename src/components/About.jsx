@@ -1,7 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Brain, Palette, Zap } from 'lucide-react';
+import {
+  Brain, Code, Palette, GitBranch,
+  Eye, Globe, Terminal, Zap,
+  Database, Cpu, Layers, Monitor,
+  Server, BookOpen, Flame, BarChart3,
+  Network, Box, FileCode, PenTool, Settings
+} from 'lucide-react';
 import { fadeInUp, fadeInLeft, fadeInRight, inViewPropsLeft, inViewPropsRight, containerVariants } from '../utils/animations';
+import NeuralNetworkBg from './NeuralNetworkBg';
 
 /* ── Main About Component ── */
 const About = () => {
@@ -13,16 +20,17 @@ const About = () => {
   ];
 
   const highlights = [
-    { icon: Brain, title: 'AI & ML', desc: 'Building intelligent systems with neural networks and deep learning', color: 'text-primary', bg: 'bg-primary/10' },
-    { icon: Code, title: 'Development', desc: 'Crafting modern web experiences with React and cutting-edge tools', color: 'text-accent', bg: 'bg-accent/10' },
+    { icon: Brain, title: 'AI & ML', desc: 'Neural networks, Deep Learning, and real-world engineering solutions', color: 'text-primary', bg: 'bg-primary/10' },
+    { icon: Zap, title: 'Automation', desc: 'Industrial automation, CNC/VMC manufacturing and machinist operations', color: 'text-accent', bg: 'bg-accent/10' },
     { icon: Palette, title: 'UI/UX Design', desc: 'Designing intuitive, beautiful interfaces that users love', color: 'text-secondary', bg: 'bg-secondary/10' },
-    { icon: Zap, title: 'Problem Solving', desc: 'Turning complex challenges into elegant, efficient solutions', color: 'text-accent', bg: 'bg-accent/10' },
+    { icon: Code, title: 'Development', desc: 'Software development and AI-driven automation bridging industrial gaps', color: 'text-accent', bg: 'bg-accent/10' },
   ];
 
   return (
     <section id="about" className="relative py-32 px-6 bg-background overflow-hidden">
       <div className="absolute inset-0 bg-gradient-mesh opacity-50" />
       <div className="absolute inset-0 dot-pattern opacity-30" />
+      <NeuralNetworkBg />
       
       {/* Decorative Blur */}
       <div className="absolute left-[-20%] top-1/4 w-[50%] h-[50%] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
@@ -44,22 +52,17 @@ const About = () => {
               
               <div className="relative h-[600px] md:h-[720px] rounded-2xl overflow-hidden border border-white/5 bg-surface/50 backdrop-blur-sm group">
                 <div 
-                  className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105"
+                  className="absolute inset-0 bg-cover bg-center"
                   style={{ 
                     backgroundImage: "url('/profile.png')",
-                    filter: 'grayscale(100%) contrast(1.1)',
-                    transition: 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.filter = 'grayscale(0%) contrast(1.05)'}
-                  onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(100%) contrast(1.1)'}
                 />
                 
                 {/* Overlays */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-background via-background/80 to-transparent">
-                  <p className="text-xs font-mono text-textMuted tracking-[0.3em] uppercase mb-2">Pandeeswaran Pichaipandi</p>
+                  <p className="text-xs font-mono text-textMuted tracking-[0.3em] uppercase mb-2">PANDEESWARAN PICHAIPANDI</p>
                   <p className="text-[10px] font-mono text-primary tracking-[0.2em]">B.Tech AI & Data Science</p>
                 </div>
               </div>
@@ -96,13 +99,10 @@ const About = () => {
             </h2>
             
             <p className="text-textMuted text-lg leading-relaxed mb-12 max-w-xl">
-              I am a <span className="text-white font-medium">B.Tech Artificial Intelligence & Data Science</span> student 
-              (3rd year) with a background in <span className="text-white font-medium">Mechanical Engineering</span> and CNC Machining. 
-              Born on August 8, 2003, my focus shifted towards building intelligent systems. My expertise spans across 
-              <span className="text-white font-medium"> Machine Learning</span>, 
-              <span className="text-white font-medium"> Full Stack Development</span>, and 
-              <span className="text-white font-medium"> AI Automation</span> — 
-              bridging the gap between industrial operations and modern software solutions.
+              Motivated and enthusiastic <span className="text-white font-medium">B.Tech Artificial Intelligence and Data Science</span> student with strong industrial experience in automation and CNC (VMC) manufacturing. 
+              Currently moving to my <span className="text-white font-medium">3rd year</span> at NSCET, Theni. My unique background combines over 2 years of hands-on experience in 
+              industrial production at <span className="text-white font-medium">Lakshmi Machine Works Limited</span> with a deep passion for Artificial Intelligence. 
+              I aim to bridge the gap between industrial operations and modern software through intelligent, data-driven solutions.
             </p>
 
             {/* Stats Grid */}

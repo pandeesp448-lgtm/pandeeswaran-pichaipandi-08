@@ -65,14 +65,6 @@ const Navbar = () => {
           <a href="#contact" className="ml-4 text-sm font-semibold px-5 py-2 rounded-lg bg-primary text-background hover:bg-secondary transition-colors duration-300">
             Let's Talk
           </a>
-          <a
-            href="/resume.pdf"
-            download="Pandeeswaran_Resume.pdf"
-            className="ml-2 group flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg border border-accent/30 text-accent hover:bg-accent/10 hover:border-accent/60 transition-all duration-300"
-          >
-            <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
-            CV
-          </a>
         </div>
 
         <button id="mobile-menu-toggle" className="md:hidden text-textMain p-2 rounded-lg hover:bg-primary/5 transition-colors" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
