@@ -92,7 +92,7 @@ const Hero = () => {
           className="flex flex-col"
         >
           {/* Terminal Status */}
-          <div className="text-[10px] md:text-xs font-mono tracking-[0.2em] space-y-2 mb-8 md:mb-12 uppercase">
+          <div className="text-[9px] md:text-xs font-mono tracking-[0.2em] space-y-1.5 mb-6 md:mb-8 uppercase">
             <motion.p className="flex items-center gap-2 text-accent/80" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
               <span className="w-1.5 h-1.5 bg-accent rounded-full pulse-glow" />
               System Online
@@ -107,7 +107,7 @@ const Hero = () => {
 
           {/* Name */}
           <motion.h1 
-            className="text-6xl md:text-8xl lg:text-[9rem] font-black text-textMain tracking-[0.05em] leading-[0.9] select-none"
+            className="text-3xl md:text-5xl lg:text-6xl font-black text-textMain tracking-[0.05em] leading-[0.9] select-none"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -116,15 +116,27 @@ const Hero = () => {
             <span className="block text-gradient glow-text uppercase">PICHAIPANDI</span>
           </motion.h1>
 
-          <motion.div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-            <div className="flex items-center gap-4 md:gap-6">
-              <div className="h-[1px] w-10 md:w-20 bg-gradient-to-r from-primary/50 to-transparent" />
-              <div className="text-base md:text-xl font-mono text-textMuted tracking-wider">
+          <motion.div className="mt-6 md:mt-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
+            <div className="flex items-center gap-3 md:gap-5">
+              <div className="h-[1px] w-8 md:w-16 bg-gradient-to-r from-primary/50 to-transparent" />
+              <div className="text-sm md:text-lg font-mono text-textMuted tracking-wider">
                 <span className="text-primary">&gt;</span>{' '}
                 <span className="text-textMain">{displayText}</span>
                 <span className="typing-cursor text-primary ml-0.5">|</span>
               </div>
             </div>
+
+            {/* Download CV Button */}
+            <motion.a 
+              href="/cv.pdf" 
+              download="Pandeeswaran_Pichaipandi_CV.pdf"
+              className="group flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-background font-bold text-xs md:text-sm tracking-[0.1em] uppercase hover:bg-secondary transition-all duration-300 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Download className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-0.5 transition-transform" />
+              <span>Download CV</span>
+            </motion.a>
           </motion.div>
         </motion.div>
 

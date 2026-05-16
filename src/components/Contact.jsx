@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, GitBranch, Briefcase, Send, ArrowUpRight, CheckCircle, Loader2, Phone, MapPin, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { fadeInUp, fadeInDown, containerVariants, inViewPropsScale } from '../utils/animations';
+import { fadeInUp, fadeInDown, containerVariants, inViewPropsScale, cardHoverLiftGlow, cardSlideInLeft, cardSlideInRight } from '../utils/animations';
 
 const Contact = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -80,10 +80,10 @@ const Contact = () => {
           {/* Social Links Slide */}
           <motion.div 
             className="lg:col-span-1"
-            initial={{ opacity: 0, x: -40 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
+            initial={{ opacity: 0, x: -60, filter: "blur(15px)" }} 
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }} 
             viewport={{ once: true, margin: "-100px" }} 
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="space-y-3 h-full">
               {socials.map((social, idx) => (
@@ -92,33 +92,44 @@ const Contact = () => {
                   href={social.href}
                   target={social.name !== 'Email' ? '_blank' : undefined}
                   rel="noreferrer"
-                  className="group relative bg-surface/60 border border-primary/[0.06] p-4 rounded-xl flex items-center gap-3 hover:border-primary/[0.15] hover:bg-surface transition-all duration-300 backdrop-blur-sm"
-                  initial={{ opacity: 0, x: -20 }}
+                  className="group relative bg-surface/60 border border-primary/[0.08] p-4 rounded-xl flex items-center gap-3 hover:border-primary/[0.25] hover:bg-surface/80 transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-2xl cursor-pointer"
+                  initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.06 }}
-                  whileHover={{ x: 4, y: -2 }}
+                  transition={{ delay: idx * 0.08 }}
+                  whileHover={{ x: 6, y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
                 >
-                  <div className="w-9 h-9 rounded-lg bg-primary/[0.05] border border-primary/[0.08] flex items-center justify-center group-hover:bg-primary/[0.1] transition-all duration-300 flex-shrink-0">
-                    <social.icon className="w-4 h-4 text-textMuted group-hover:text-primary transition-colors" />
-                  </div>
+                  <motion.div 
+                    className="w-9 h-9 rounded-lg bg-primary/[0.08] border border-primary/[0.12] flex items-center justify-center group-hover:bg-primary/[0.15] transition-all duration-300 flex-shrink-0"
+                    whileHover={{ scale: 1.15, rotate: 8 }}
+                  >
+                    <social.icon className="w-4 h-4 text-textMuted group-hover:text-primary transition-colors duration-300" />
+                  </motion.div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[8px] font-mono text-textDim tracking-[0.15em] uppercase mb-0.5">{social.name}</p>
-                    <p className="text-textMain font-medium text-xs truncate">{social.value}</p>
+                    <p className="text-textMain font-medium text-xs truncate group-hover:text-primary transition-colors duration-300">{social.value}</p>
                   </div>
                 </motion.a>
               ))}
 
               {/* Availability */}
               <motion.div 
-                className="mt-4 p-4 rounded-xl bg-surface/60 border border-primary/[0.06] backdrop-blur-sm" 
-                initial={{ opacity: 0, y: 20 }} 
+                className="mt-4 p-4 rounded-xl bg-surface/60 border border-primary/[0.08] backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300" 
+                initial={{ opacity: 0, y: 30 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.4 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-glow" />
+                  <motion.span 
+                    className="w-1.5 h-1.5 rounded-full bg-accent pulse-glow" 
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
                   <span className="text-[9px] font-mono text-accent tracking-[0.15em] uppercase">Available</span>
                 </div>
                 <p className="text-textMuted text-xs leading-relaxed">Open to internships & collaborations in AI/ML.</p>
@@ -129,28 +140,41 @@ const Contact = () => {
           {/* Form Slide */}
           <motion.div 
             className="lg:col-span-2"
-            initial={{ opacity: 0, x: 40 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
+            initial={{ opacity: 0, x: 60, filter: "blur(15px)" }} 
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }} 
             viewport={{ once: true, margin: "-100px" }} 
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <form onSubmit={handleSubmit} className="relative bg-surface/60 border border-primary/[0.06] p-6 md:p-8 rounded-xl backdrop-blur-sm">
+            <motion.form 
+              onSubmit={handleSubmit} 
+              className="relative bg-surface/60 border border-primary/[0.08] p-6 md:p-8 rounded-xl backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-300 hover:border-primary/[0.2]"
+              whileHover={{ scale: 1.01 }}
+              style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
+            >
               <div className="mb-6">
                 <p className="text-[10px] font-mono text-textDim tracking-[0.2em] uppercase mb-2">Send a Message</p>
-                <div className="h-[1px] w-8 bg-gradient-to-r from-primary to-accent rounded-full" />
+                <motion.div 
+                  className="h-[1px] w-8 bg-gradient-to-r from-primary to-accent rounded-full" 
+                  whileHover={{ scaleX: 1.5 }}
+                />
               </div>
 
               {error && (
-                <div className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center gap-3">
+                <motion.div 
+                  className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center gap-3"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
                   <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
                   <p className="text-red-300 text-xs">{error}</p>
-                </div>
+                </motion.div>
               )}
 
               <div className="space-y-4">
-                <div className="space-y-1.5">
+                <motion.div className="space-y-1.5" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
                   <label className="text-[9px] text-textMuted font-mono tracking-[0.15em] uppercase">Full Name</label>
-                  <input 
+                  <motion.input 
                     id="contact-name" 
                     type="text" 
                     value={formState.name} 
@@ -158,12 +182,13 @@ const Contact = () => {
                     className="w-full bg-background/40 border border-primary/[0.08] rounded-lg px-4 py-3 text-textMain text-sm font-light focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-textDim placeholder:font-mono placeholder:text-xs" 
                     placeholder="Your name" 
                     required 
+                    whileFocus={{ scale: 1.02, boxShadow: "0 0 0 3px rgba(210, 180, 140, 0.1)" }}
                   />
-                </div>
+                </motion.div>
                 
-                <div className="space-y-1.5">
+                <motion.div className="space-y-1.5" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}>
                   <label className="text-[9px] text-textMuted font-mono tracking-[0.15em] uppercase">Email Address</label>
-                  <input 
+                  <motion.input 
                     id="contact-email" 
                     type="email" 
                     value={formState.email} 
@@ -171,12 +196,13 @@ const Contact = () => {
                     className="w-full bg-background/40 border border-primary/[0.08] rounded-lg px-4 py-3 text-textMain text-sm font-light focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-textDim placeholder:font-mono placeholder:text-xs" 
                     placeholder="your@email.com" 
                     required 
+                    whileFocus={{ scale: 1.02, boxShadow: "0 0 0 3px rgba(210, 180, 140, 0.1)" }}
                   />
-                </div>
+                </motion.div>
                 
-                <div className="space-y-1.5">
+                <motion.div className="space-y-1.5" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
                   <label className="text-[9px] text-textMuted font-mono tracking-[0.15em] uppercase">Message</label>
-                  <textarea 
+                  <motion.textarea 
                     id="contact-message" 
                     rows="4" 
                     value={formState.message} 
@@ -184,19 +210,24 @@ const Contact = () => {
                     className="w-full bg-background/40 border border-primary/[0.08] rounded-lg px-4 py-3 text-textMain text-sm font-light focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all duration-300 resize-none placeholder:text-textDim placeholder:font-mono placeholder:text-xs" 
                     placeholder="Tell me about your project..." 
                     required 
+                    whileFocus={{ scale: 1.02, boxShadow: "0 0 0 3px rgba(210, 180, 140, 0.1)" }}
                   />
-                </div>
+                </motion.div>
                 
                 <motion.button 
                   id="contact-submit" 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full py-3 bg-primary text-background text-sm font-bold tracking-[0.15em] uppercase hover:bg-secondary transition-all duration-300 flex items-center justify-center gap-2 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed group"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-3 bg-primary text-background text-sm font-bold tracking-[0.15em] uppercase hover:bg-secondary transition-all duration-300 flex items-center justify-center gap-2 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed group shadow-lg hover:shadow-xl"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.35 }}
                 >
                   {isSubmitted ? (
-                    <><CheckCircle className="w-4 h-4 text-accent" /><span className="text-background">Sent!</span></>
+                    <><CheckCircle className="w-4 h-4 text-accent animate-pulse" /><span className="text-background">Sent!</span></>
                   ) : isSubmitting ? (
                     <><Loader2 className="w-4 h-4 animate-spin" /><span>Sending...</span></>
                   ) : (
@@ -204,7 +235,7 @@ const Contact = () => {
                   )}
                 </motion.button>
               </div>
-            </form>
+            </motion.form>
           </motion.div>
         </div>
       </div>

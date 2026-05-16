@@ -7,7 +7,7 @@ import {
   Server, BookOpen, Flame, BarChart3,
   Network, Box, FileCode, PenTool, Settings
 } from 'lucide-react';
-import { containerVariants, fadeInUp, inViewPropsScale } from '../utils/animations';
+import { containerVariants, fadeInUp, inViewPropsScale, cardHoverScaleGlow, cardSlideIn } from '../utils/animations';
 import NeuralNetworkBg from './NeuralNetworkBg';
 
 /* ── Skill categories data ── */
@@ -55,13 +55,26 @@ const RingCard = ({ skill, hex, idx, isActive }) => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 10 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: idx * 0.05 }}
-      className="group relative flex flex-col items-center gap-3 p-4 rounded-2xl border border-white/5 bg-surface/50 transition-all duration-300 cursor-default"
+      initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+      animate={inView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+      transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
+      whileHover={{ y: -10, scale: 1.08 }}
+      whileTap={{ scale: 0.95 }}
+      className="group relative flex flex-col items-center gap-3 p-4 rounded-2xl border border-white/5 bg-surface/50 transition-all duration-300 cursor-pointer hover:border-white/20 shadow-lg hover:shadow-2xl"
+      style={{
+        boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
+      }}
     >
+      {/* Hover glow background */}
+      <motion.div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, ${hex}20, transparent)`,
+        }}
+      />
+
       {/* SVG Ring */}
-      <div className="relative w-16 h-16">
+      <motion.div className="relative w-16 h-16" whileHover={{ rotate: 5 }}>
         <svg width="64" height="64" className="-rotate-90">
           <circle cx="32" cy="32" r={RADIUS} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
           <motion.circle
@@ -73,24 +86,33 @@ const RingCard = ({ skill, hex, idx, isActive }) => {
             strokeDasharray={CIRC}
             initial={{ strokeDashoffset: CIRC }}
             animate={inView ? { strokeDashoffset: CIRC - (CIRC * skill.level) / 100 } : { strokeDashoffset: CIRC }}
-            transition={{ duration: 1, delay: 0.2 + idx * 0.05 }}
+            transition={{ duration: 1.2, delay: 0.2 + idx * 0.06, ease: "easeOut" }}
+            filter={`drop-shadow(0 0 8px ${hex}80)`}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <skill.icon className="w-5 h-5" style={{ color: hex }} />
-        </div>
-      </div>
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center"
+          whileHover={{ scale: 1.2 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
+          <skill.icon className="w-5 h-5 transition-all duration-300" style={{ color: hex }} />
+        </motion.div>
+      </motion.div>
 
-      <p className="text-[10px] font-bold text-textMuted group-hover:text-white text-center tracking-wide uppercase leading-tight transition-colors">
+      <motion.p 
+        className="text-[10px] font-bold text-textMuted group-hover:text-white text-center tracking-wide uppercase leading-tight transition-colors duration-300 relative z-10"
+        whileHover={{ scale: 1.05 }}
+      >
         {skill.name}
-      </p>
+      </motion.p>
 
-      <span
-        className="text-[9px] font-mono px-2 py-0.5 rounded-full border"
+      <motion.span
+        className="text-[9px] font-mono px-2 py-0.5 rounded-full border relative z-10 transition-all duration-300 group-hover:scale-110"
         style={{ color: hex, borderColor: `${hex}40`, backgroundColor: `${hex}10` }}
+        whileHover={{ boxShadow: `0 0 12px ${hex}60` }}
       >
         {skill.level}%
-      </span>
+      </motion.span>
     </motion.div>
   );
 };

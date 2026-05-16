@@ -7,7 +7,7 @@ import {
   Server, BookOpen, Flame, BarChart3,
   Network, Box, FileCode, PenTool, Settings
 } from 'lucide-react';
-import { fadeInUp, fadeInLeft, fadeInRight, inViewPropsLeft, inViewPropsRight, containerVariants } from '../utils/animations';
+import { fadeInUp, fadeInLeft, fadeInRight, inViewPropsLeft, inViewPropsRight, containerVariants, cardHoverLiftGlow, cardSlideInLeft, cardSlideInRight } from '../utils/animations';
 import NeuralNetworkBg from './NeuralNetworkBg';
 
 /* ── Main About Component ── */
@@ -50,7 +50,7 @@ const About = () => {
               {/* Outer Glow */}
               <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
               
-              <div className="relative h-[600px] md:h-[720px] rounded-2xl overflow-hidden border border-white/5 bg-surface/50 backdrop-blur-sm group">
+              <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden border border-white/5 bg-surface/50 backdrop-blur-sm group">
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ 
@@ -110,13 +110,19 @@ const About = () => {
               {stats.map((stat, idx) => (
                 <motion.div
                   key={idx}
-                  className="relative text-center p-5 rounded-2xl glass-card overflow-hidden group hover:-translate-y-1 transition-all duration-300"
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  className="relative text-center p-5 rounded-2xl glass-card overflow-hidden group hover:scale-105 hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                  whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.4 + idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.4 + idx * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  whileHover={{ y: -8 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}
                 >
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                  <motion.div 
+                    className="absolute inset-0 bg-primary/0 group-hover:bg-primary/15 transition-colors duration-300" 
+                    whileHover={{ opacity: 1 }}
+                  />
                   <p className="relative z-10 text-3xl font-black text-white group-hover:text-primary transition-colors duration-300">
                     {stat.number}<span className="text-primary group-hover:text-white transition-colors duration-300">{stat.suffix}</span>
                   </p>
@@ -130,20 +136,34 @@ const About = () => {
               {highlights.map((item, idx) => (
                 <motion.div
                   key={idx}
-                  className="group relative flex items-start gap-4 p-5 rounded-2xl glass-card border-white/5 hover:border-primary/20 overflow-hidden transition-all duration-500"
-                  initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                  className="group relative flex items-start gap-4 p-5 rounded-2xl glass-card border border-white/5 hover:border-primary/30 overflow-hidden transition-all duration-500 hover:shadow-2xl cursor-pointer"
+                  initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
                   whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6 + idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
                 >
                   {/* Subtle Background Sweep */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" 
+                    whileHover={{ x: 100 }}
+                  />
                   
-                  <div className={`relative z-10 w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                  <motion.div 
+                    className={`relative z-10 w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center shrink-0 transition-all duration-300`}
+                    whileHover={{ scale: 1.15, rotate: 8 }}
+                  >
                     <item.icon className={`w-6 h-6 ${item.color}`} />
-                  </div>
+                  </motion.div>
                   <div className="relative z-10">
-                    <h4 className="text-base font-bold text-white tracking-wide group-hover:text-primary transition-colors duration-300">{item.title}</h4>
+                    <motion.h4 
+                      className="text-base font-bold text-white tracking-wide group-hover:text-primary transition-colors duration-300"
+                      whileHover={{ x: 2 }}
+                    >
+                      {item.title}
+                    </motion.h4>
                     <p className="text-xs text-textMuted mt-1.5 leading-relaxed">{item.desc}</p>
                   </div>
                 </motion.div>

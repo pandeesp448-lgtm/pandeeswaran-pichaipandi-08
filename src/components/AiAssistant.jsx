@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Bot, Sparkles, ChevronDown, User } from 'lucide-react';
+import { X, Send, Bot, Sparkles, ChevronDown, User, GripVertical } from 'lucide-react';
 import { slideFromBottom, fadeInScale, containerVariants } from '../utils/animations';
 
 /* ── Portfolio knowledge base for smart responses ── */
@@ -105,6 +105,7 @@ const TypingIndicator = () => (
 /* ── Main AI Assistant Component ── */
 const AiAssistant = () => {
   const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [messages, setMessages] = useState([
     { id: 0, role: 'bot', text: "Hello! 👋 I'm PANDEE-BOT. Ask me anything about Pandeeswaran's portfolio — skills, projects, education, or experience!" }
   ]);
@@ -171,11 +172,21 @@ const AiAssistant = () => {
       <AnimatePresence>
         {open && (
           <motion.div
+            drag
+            dragElastic={0.1}
+            dragMomentum={false}
+            position={position}
+            onDragEnd={(event, info) => {
+              setPosition({
+                x: position.x + info.offset.x,
+                y: position.y + info.offset.y,
+              });
+            }}
             initial={{ opacity: 0, scale: 0.85, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 30 }}
             transition={{ type: 'spring', stiffness: 280, damping: 24 }}
-            className="fixed bottom-8 right-8 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-3xl overflow-hidden flex flex-col"
+            className="fixed bottom-8 right-8 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-3xl overflow-hidden flex flex-col cursor-grab active:cursor-grabbing"
             style={{
               height: '560px',
               background: 'rgba(26,26,26,0.92)',
@@ -184,10 +195,24 @@ const AiAssistant = () => {
               boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 80px rgba(210,180,140,0.08)',
             }}
           >
-            {/* ── Header ── */}
-            <div className="relative flex items-center gap-3 px-5 py-4 border-b border-white/5 shrink-0">
+            {/* ── Header (Drag Handle) ── */}
+            <motion.div 
+              drag
+              dragElastic={0.1}
+              dragMomentum={false}
+              onDrag={(event, info) => {
+                setPosition({
+                  x: position.x + info.offset.x,
+                  y: position.y + info.offset.y,
+                });
+              }}
+              className="relative flex items-center gap-3 px-5 py-4 border-b border-white/5 shrink-0 cursor-grab active:cursor-grabbing"
+            >
               {/* Gradient top bar */}
               <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60" />
+
+              {/* Drag Handle Icon */}
+              <GripVertical className="w-4 h-4 text-textDim hover:text-primary transition-colors opacity-60 hover:opacity-100" />
 
               <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20 flex items-center justify-center">
                 <Bot className="w-5 h-5 text-primary" />
@@ -208,7 +233,7 @@ const AiAssistant = () => {
               >
                 <X className="w-4 h-4" />
               </button>
-            </div>
+            </motion.div>
 
             {/* ── Messages ── */}
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin">

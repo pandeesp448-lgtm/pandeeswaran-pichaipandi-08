@@ -44,7 +44,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <a href="#home" className="relative group">
-          <span className="text-xl font-bold tracking-tighter text-textMain">
+          <span className="text-lg font-bold tracking-tighter text-textMain">
             Pandees<span className="text-gradient">waran</span>
           </span>
           <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-300" />

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { GitBranch, ExternalLink, ArrowUpRight, Brain, Code, Cpu, Globe, BarChart3, Sparkles } from 'lucide-react';
-import { fadeInLeft, fadeInRight, hoverLift, inViewPropsScale } from '../utils/animations';
+import { fadeInLeft, fadeInRight, cardHoverLiftGlow, cardSlideIn } from '../utils/animations';
 import NeuralNetworkBg from './NeuralNetworkBg';
 
 const categories = ['All', 'AI / ML', 'Full Stack', 'Web Dev', 'Data Science', 'Creative'];
@@ -81,61 +81,95 @@ const ProjectCard = ({ project, idx }) => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 10 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: idx * 0.05 }}
-      className="group relative rounded-3xl overflow-hidden border border-white/5 bg-surface/60 backdrop-blur-sm hover:border-white/15 transition-all duration-300 cursor-pointer"
+      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+      transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+      whileHover={{ y: -8, scale: 1.01 }}
+      whileTap={{ scale: 0.98 }}
+      className="group relative rounded-3xl overflow-hidden border border-white/5 bg-surface/60 backdrop-blur-sm hover:border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl"
+      style={{
+        boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
+      }}
     >
+      <motion.div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, ${meta.hex}15, transparent)`,
+        }}
+      />
+      
       <div className="flex flex-col md:flex-row min-h-[200px]">
         {/* Image panel */}
-        <div className="relative w-full md:w-64 h-48 md:h-auto shrink-0 overflow-hidden">
+        <motion.div className="relative w-full md:w-64 h-48 md:h-auto shrink-0 overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-          <div className="absolute bottom-3 left-3 flex items-center gap-2 px-2 py-1 rounded-full border backdrop-blur-md text-[9px] font-mono tracking-wider uppercase"
-               style={{ borderColor: `${meta.hex}40`, backgroundColor: `${meta.hex}18`, color: meta.hex }}>
+          <motion.div 
+            className="absolute bottom-3 left-3 flex items-center gap-2 px-2 py-1 rounded-full border backdrop-blur-md text-[9px] font-mono tracking-wider uppercase"
+            style={{ borderColor: `${meta.hex}40`, backgroundColor: `${meta.hex}18`, color: meta.hex }}
+            whileHover={{ scale: 1.1, y: -2 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
             <meta.icon className="w-3 h-3" />
             {project.category}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Content */}
-        <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
+        <div className="flex-1 p-6 md:p-8 flex flex-col justify-between relative z-20">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <motion.div className="flex items-center gap-2 mb-2" initial={{ opacity: 0, x: -10 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ delay: idx * 0.08 + 0.2 }}>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded border" 
                     style={{ color: meta.hex, borderColor: `${meta.hex}40` }}>
                 {project.emoji}
               </span>
-              <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-primary transition-colors">
+              <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-primary transition-colors duration-300">
                 {project.title}
               </h3>
-            </div>
+            </motion.div>
             <p className="text-textMuted text-xs leading-relaxed mb-4 line-clamp-2">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-1.5 mb-6">
               {project.tech.map((tech, tIdx) => (
-                <span key={tIdx} className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-white/10 bg-white/5 text-textDim">
+                <motion.span 
+                  key={tIdx} 
+                  className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-white/10 bg-white/5 text-textDim hover:border-white/30 hover:bg-white/10 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                >
                   {tech}
-                </span>
+                </motion.span>
               ))}
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[10px] font-mono text-textDim hover:text-white transition-colors">
+            <motion.a 
+              href={project.github} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="flex items-center gap-1.5 text-[10px] font-mono text-textDim hover:text-white transition-colors duration-300"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <GitBranch className="w-3.5 h-3.5" />
               <span>SOURCE</span>
-            </a>
+            </motion.a>
             <div className="w-px h-2 bg-white/10" />
-            <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-primary hover:text-accent transition-colors">
+            <motion.a 
+              href={project.github} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-primary hover:text-accent transition-colors duration-300"
+              whileHover={{ x: 4, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <ExternalLink className="w-3.5 h-3.5" />
               <span>LIVE DEMO</span>
-            </a>
+            </motion.a>
           </div>
         </div>
       </div>
